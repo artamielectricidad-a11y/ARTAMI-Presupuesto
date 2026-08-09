@@ -533,10 +533,104 @@
             .logo-box { width: 185px; }
             .logo-box img { max-height: 62px; }
             .services-subgrid { grid-template-columns: 1fr; }
-            .form-grid { grid-template-columns: 1fr; }
-            .form-modal-container { padding: 30px 20px; }
+
+            /* FORMULARIO OPTIMIZADO PARA CELULARES */
+            .form-modal-container {
+                width: calc(100% - 24px);
+                max-width: none;
+                max-height: 94vh;
+                padding: 24px 16px;
+                border-radius: 20px;
+            }
+
+            .form-header { margin-bottom: 20px; padding-right: 28px; }
+            .form-header h2 { font-size: 24px; line-height: 1.2; }
+            .form-header p { font-size: 13px; line-height: 1.45; }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+
+            .form-group { gap: 7px; }
+            .form-label { font-size: 14px; line-height: 1.35; }
+
+            /* 16px evita que iPhone haga zoom automático al tocar un campo */
+            .form-input, .form-select, .form-textarea {
+                box-sizing: border-box;
+                font-size: 16px;
+                min-height: 50px;
+                padding: 13px 14px;
+                border-radius: 12px;
+            }
+
+            .form-textarea { min-height: 100px; }
+
+            .form-footer-note {
+                font-size: 11px;
+                line-height: 1.4;
+            }
+
+            .upload-box {
+                padding: 16px 12px;
+                margin-bottom: 10px;
+            }
+
+            .upload-box p {
+                font-size: 13px;
+                line-height: 1.45;
+                margin-bottom: 12px;
+            }
+
+            .upload-btn-label {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                margin: 0 0 10px;
+                padding: 12px 14px;
+                text-align: center;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+
+            .file-status {
+                display: block;
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            .checkbox-container {
+                gap: 9px;
+                margin: 18px 0 20px;
+                font-size: 12px;
+                line-height: 1.45;
+            }
+
+            .checkbox-container input {
+                flex: 0 0 18px;
+                margin-top: 2px;
+            }
+
+            .btn-submit-action {
+                min-height: 52px;
+                padding: 14px 12px;
+                border-radius: 12px;
+                font-size: 15px;
+            }
+
             .user-name, .user-subtitle { font-size: 16px; }
             .urgencia-btn { width: 100%; font-size: 14px; padding: 15px 20px; }
+        }
+
+        @media (max-width: 380px) {
+            .form-modal-container {
+                width: calc(100% - 16px);
+                padding: 22px 13px;
+            }
+
+            .form-header h2 { font-size: 22px; }
+            .form-grid { gap: 14px; }
         }
     </style>
 </head>
@@ -798,6 +892,9 @@
             <input type="hidden" id="servicioSeleccionado" name="Servicio">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="Nueva consulta ARTAMI con fotos">
+            <input type="hidden" name="_replyto" id="replyTo">
+            <input type="hidden" name="_url" value="https://artamielectricidad.com.ar/">
 
             <div class="form-grid">
                 <!-- NOMBRE Y APELLIDO -->
@@ -815,7 +912,7 @@
                 <!-- EMAIL -->
                 <div class="form-group">
                     <label class="form-label">Email <span class="req" id="emailReq"></span></label>
-                    <input type="email" id="email" name="Email" class="form-input" placeholder="Ej. juan@email.com">
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Ej. juan@email.com">
                     <span class="form-footer-note">Las consultas con fotos llegarán a artamielectricidad@gmail.com</span>
                 </div>
 
@@ -824,11 +921,8 @@
                     <label class="form-label">Localidad / zona <span class="req">*</span></label>
                     <select id="localidad" name="Localidad" class="form-select" required>
                         <option value="" disabled selected>Seleccioná tu localidad</option>
-                        <option value="Río Grande (Chacra XIII)">Río Grande (Chacra XIII)</option>
-                        <option value="Río Grande (Centro)">Río Grande (Centro)</option>
-                        <option value="Río Grande (Otras zonas)">Río Grande (Otras zonas)</option>
+                        <option value="Río Grande">Río Grande</option>
                         <option value="Tolhuin">Tolhuin</option>
-                        <option value="Ushuaia">Ushuaia</option>
                     </select>
                 </div>
 
@@ -926,6 +1020,20 @@
         cerrarModal('modal-menu-torrista');
 
         document.getElementById('servicioSeleccionado').value = nombreServicio;
+
+        // Localidades según el rubro:
+        // Electricidad e Informática: Río Grande y Tolhuin.
+        // Torrista / Antenista: Río Grande, Tolhuin y Ushuaia.
+        const localidad = document.getElementById('localidad');
+        const esTorrista = nombreServicio.startsWith('Torrista:');
+
+        localidad.innerHTML = `
+            <option value="" disabled selected>Seleccioná tu localidad</option>
+            <option value="Río Grande">Río Grande</option>
+            <option value="Tolhuin">Tolhuin</option>
+            ${esTorrista ? '<option value="Ushuaia">Ushuaia</option>' : ''}
+        `;
+
         abrirModal('modal-formulario');
     }
 
@@ -936,6 +1044,7 @@
         const notaPie = document.getElementById('notaPieFormulario');
         const emailInput = document.getElementById('email');
         const emailReq = document.getElementById('emailReq');
+        const MAX_TOTAL = 10 * 1024 * 1024; // FormSubmit admite hasta 10 MB en total
 
         if (input.files.length === 0) {
             status.textContent = 'Ningún archivo seleccionado';
@@ -945,6 +1054,18 @@
             emailInput.required = false;
             emailReq.textContent = '';
         } else {
+            const totalBytes = Array.from(input.files).reduce((total, file) => total + file.size, 0);
+            if (totalBytes > MAX_TOTAL) {
+                input.value = '';
+                status.textContent = 'Archivos demasiado grandes';
+                btnSubmit.innerHTML = 'Enviar consulta por WhatsApp 💬';
+                btnSubmit.classList.remove('modo-email');
+                notaPie.innerHTML = '⚠️ <strong>Las fotos superan el límite total de 10 MB. Elegí fotos más livianas.</strong>';
+                emailInput.required = false;
+                emailReq.textContent = '';
+                return;
+            }
+
             const num = input.files.length;
             status.textContent = num === 1 ? input.files[0].name : `${num} archivos seleccionados`;
             btnSubmit.innerHTML = 'Enviar consulta por Email ✉️';
@@ -960,9 +1081,22 @@
         const hayFotos = inputFotos.files && inputFotos.files.length > 0;
 
         if (hayFotos) {
-            // Permite el envío HTML nativo a FormSubmit
+            // Envío HTML nativo a FormSubmit para conservar los archivos adjuntos.
+            const email = document.getElementById('email').value.trim();
+            const replyTo = document.getElementById('replyTo');
+            replyTo.value = email;
+
+            const totalBytes = Array.from(inputFotos.files).reduce((total, file) => total + file.size, 0);
+            if (totalBytes > 10 * 1024 * 1024) {
+                e.preventDefault();
+                alert('Las fotos superan el límite total de 10 MB. Elegí fotos más livianas.');
+                actualizarArchivos();
+                return false;
+            }
+
             const btnSubmit = document.getElementById('btnSubmit');
             btnSubmit.innerHTML = 'Enviando email con fotos... ⏳';
+            btnSubmit.disabled = true;
             return true;
         } else {
             // Detiene el formulario y redirige a WhatsApp
