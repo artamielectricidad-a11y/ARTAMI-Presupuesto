@@ -246,6 +246,74 @@
 
         .rubro-card:hover .btn-rubro { background: #ff2a5f; color: white; }
 
+        /* POR QUÉ ELEGIR ARTAMI */
+        .why-section {
+            padding: 70px 8%;
+            background: #0b0c10;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: linear-gradient(145deg, #151820, #101218);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 28px 22px;
+            text-align: center;
+            transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,42,95,.65);
+            box-shadow: 0 12px 30px rgba(255,42,95,.12);
+        }
+
+        .why-icon { font-size: 34px; margin-bottom: 14px; }
+        .why-card h3 { font-size: 17px; margin-bottom: 8px; }
+        .why-card p { color: #9ca3af; font-size: 13px; line-height: 1.55; }
+
+        /* VISTA PREVIA DE FOTOS */
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .photo-preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #e5e7eb;
+            border: 1px solid #e5e7eb;
+        }
+
+        .photo-preview-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .photo-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 24px;
+            height: 24px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0,0,0,.72);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 24px;
+        }
+
         /* MODALES GENERALES */
         .modal-overlay {
             position: fixed;
@@ -619,11 +687,43 @@
                 font-size: 15px;
             }
 
-            .user-name, .user-subtitle { font-size: 16px; }
+            header {
+                padding: 10px 12px;
+                gap: 10px;
+                min-height: 72px;
+            }
+
+            .logo-box { width: 145px; }
+            .logo-box img { max-height: 50px; }
+            .nav-center { min-width: 0; }
+            .user-name, .user-subtitle { font-size: 12px; letter-spacing: 1.5px; line-height: 1.15; }
+            .btn-header { padding: 9px 11px; font-size: 11px; border-radius: 9px; white-space: nowrap; }
+            .hero { padding: 35px 18px 45px; gap: 28px; }
+            .hero-title { font-size: 36px; }
+            .hero-desc { font-size: 15px; }
+            .section-rubros, .why-section { padding: 48px 18px; }
+            .section-title { font-size: 27px; }
+            .why-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .why-card { padding: 20px 12px; border-radius: 14px; }
+            .why-icon { font-size: 28px; }
+            .why-card h3 { font-size: 15px; }
+            .why-card p { font-size: 12px; }
             .urgencia-btn { width: 100%; font-size: 14px; padding: 15px 20px; }
+            .modal-overlay { padding: 10px; align-items: flex-end; }
+            .modal-grid-container { max-height: 92vh; border-radius: 20px 20px 14px 14px; padding: 44px 16px 22px; }
+            .form-modal-container { max-height: 92vh; }
+            .close-btn { top: 12px; right: 12px; width: 38px; height: 38px; }
+            .photo-preview { grid-template-columns: repeat(4, 1fr); gap: 7px; }
+            .photo-remove { width: 22px; height: 22px; line-height: 22px; }
         }
 
         @media (max-width: 380px) {
+            header { padding-left: 8px; padding-right: 8px; }
+            .logo-box { width: 125px; }
+            .nav-center { display: none; }
+            .btn-header { margin-left: auto; }
+            .hero-title { font-size: 32px; }
+            .why-grid { grid-template-columns: 1fr; }
             .form-modal-container {
                 width: calc(100% - 16px);
                 padding: 22px 13px;
@@ -726,6 +826,18 @@
             </div>
             <button class="btn-rubro">Ver Servicios de Altura</button>
         </div>
+    </div>
+</section>
+
+<!-- POR QUÉ ELEGIR ARTAMI -->
+<section class="why-section" id="por-que-artami">
+    <h2 class="section-title">¿Por qué elegir ARTAMI?</h2>
+    <p class="section-subtitle">Buscamos que pedir un presupuesto sea simple, claro y rápido.</p>
+    <div class="why-grid">
+        <div class="why-card"><div class="why-icon">⚡</div><h3>Atención rápida</h3><p>Respondemos tus consultas y coordinamos el trabajo de la forma más ágil posible.</p></div>
+        <div class="why-card"><div class="why-icon">🛠️</div><h3>Trabajo profesional</h3><p>Soluciones pensadas para instalaciones, reparaciones y mantenimiento.</p></div>
+        <div class="why-card"><div class="why-icon">📍</div><h3>Varias localidades</h3><p>Atendemos Río Grande, Tolhuin y, según el servicio, Ushuaia.</p></div>
+        <div class="why-card"><div class="why-icon">🚨</div><h3>Atendemos urgencias</h3><p>Si tenés una emergencia eléctrica, podés contactarnos directamente.</p></div>
     </div>
 </section>
 
@@ -949,6 +1061,13 @@
 
             </div>
 
+            <!-- DETALLE DEL TRABAJO -->
+            <div class="form-group full-width">
+                <label class="form-label">Contanos qué necesitás</label>
+                <textarea id="detalle" name="Detalle" class="form-textarea" placeholder="Ej. Necesito revisar una instalación, reparar una falla o colocar nuevos tomacorrientes..."></textarea>
+                <span class="form-footer-note">Cuantos más detalles nos des, mejor podremos orientarte.</span>
+            </div>
+
             <!-- FOTOS DEL TRABAJO -->
             <div class="form-group full-width">
                 <label class="form-label">Fotos del trabajo</label>
@@ -957,6 +1076,7 @@
                     <label class="upload-btn-label" for="fotosInput">Elegir archivos</label>
                     <span class="file-status" id="fileStatus">Ningún archivo seleccionado</span>
                     <input type="file" id="fotosInput" name="attachment" multiple accept="image/*" onchange="actualizarArchivos()">
+                    <div class="photo-preview" id="photoPreview"></div>
                 </div>
                 <span class="form-footer-note" id="notaPieFormulario">
                     Si no adjuntás fotos, tu consulta se enviará directamente por WhatsApp.
@@ -1043,7 +1163,10 @@
         const notaPie = document.getElementById('notaPieFormulario');
         const emailInput = document.getElementById('email');
         const emailReq = document.getElementById('emailReq');
-        const MAX_TOTAL = 10 * 1024 * 1024; // FormSubmit admite hasta 10 MB en total
+        const preview = document.getElementById('photoPreview');
+        const MAX_TOTAL = 10 * 1024 * 1024;
+
+        preview.innerHTML = '';
 
         if (input.files.length === 0) {
             status.textContent = 'Ningún archivo seleccionado';
@@ -1052,27 +1175,50 @@
             notaPie.textContent = 'Si no adjuntás fotos, tu consulta se enviará directamente por WhatsApp.';
             emailInput.required = false;
             emailReq.textContent = '';
-        } else {
-            const totalBytes = Array.from(input.files).reduce((total, file) => total + file.size, 0);
-            if (totalBytes > MAX_TOTAL) {
-                input.value = '';
-                status.textContent = 'Archivos demasiado grandes';
-                btnSubmit.innerHTML = 'Enviar consulta por WhatsApp 💬';
-                btnSubmit.classList.remove('modo-email');
-                notaPie.innerHTML = '⚠️ <strong>Las fotos superan el límite total de 10 MB. Elegí fotos más livianas.</strong>';
-                emailInput.required = false;
-                emailReq.textContent = '';
-                return;
-            }
-
-            const num = input.files.length;
-            status.textContent = num === 1 ? input.files[0].name : `${num} archivos seleccionados`;
-            btnSubmit.innerHTML = 'Enviar consulta por Email ✉️';
-            btnSubmit.classList.add('modo-email');
-            notaPie.innerHTML = '✉️ <strong>Al adjuntar fotos, tu consulta se enviará por Email para poder procesar los archivos.</strong>';
-            emailInput.required = true;
-            emailReq.textContent = '*';
+            return;
         }
+
+        const totalBytes = Array.from(input.files).reduce((total, file) => total + file.size, 0);
+        if (totalBytes > MAX_TOTAL) {
+            input.value = '';
+            status.textContent = 'Archivos demasiado grandes';
+            btnSubmit.innerHTML = 'Enviar consulta por WhatsApp 💬';
+            btnSubmit.classList.remove('modo-email');
+            notaPie.innerHTML = '⚠️ <strong>Las fotos superan el límite total de 10 MB. Elegí fotos más livianas.</strong>';
+            emailInput.required = false;
+            emailReq.textContent = '';
+            return;
+        }
+
+        Array.from(input.files).forEach((file, index) => {
+            const item = document.createElement('div');
+            item.className = 'photo-preview-item';
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.alt = 'Vista previa ' + (index + 1);
+            item.appendChild(img);
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'photo-remove';
+            remove.textContent = '×';
+            remove.title = 'Quitar foto';
+            remove.onclick = () => {
+                const dt = new DataTransfer();
+                Array.from(input.files).forEach((f, i) => { if (i !== index) dt.items.add(f); });
+                input.files = dt.files;
+                actualizarArchivos();
+            };
+            item.appendChild(remove);
+            preview.appendChild(item);
+        });
+
+        const num = input.files.length;
+        status.textContent = num === 1 ? input.files[0].name : `${num} fotos seleccionadas`;
+        btnSubmit.innerHTML = 'Enviar consulta por Email ✉️';
+        btnSubmit.classList.add('modo-email');
+        notaPie.innerHTML = '✉️ <strong>Al adjuntar fotos, tu consulta se enviará por Email para poder procesar los archivos.</strong>';
+        emailInput.required = true;
+        emailReq.textContent = '*';
     }
 
     function procesarFormulario(e) {
@@ -1108,14 +1254,17 @@
             const localidad = document.getElementById('localidad').value;
             const tiempo = document.getElementById('tiempo').value;
             const propiedad = document.getElementById('propiedad').value;
-            let mensaje = `Hola! Quisiera solicitar un presupuesto.\n\n`;
+            const detalle = document.getElementById('detalle').value.trim();
+            let mensaje = `🔧 *NUEVA SOLICITUD DE PRESUPUESTO - ARTAMI*\n\n`;
             mensaje += `📌 *Servicio:* ${servicio}\n`;
-            mensaje += `👤 *Nombre:* ${nombre}\n`;
+            mensaje += `👤 *Cliente:* ${nombre}\n`;
             mensaje += `📞 *Teléfono:* ${telefono}\n`;
             if (email) mensaje += `✉️ *Email:* ${email}\n`;
             mensaje += `📍 *Localidad:* ${localidad}\n`;
-            mensaje += `⏱️ *Urgencia:* ${tiempo}\n`;
+            mensaje += `⏱️ *Cuándo lo necesita:* ${tiempo}\n`;
             mensaje += `🏠 *Propiedad:* ${propiedad}\n`;
+            if (detalle) mensaje += `\n📝 *Detalle del trabajo:*\n${detalle}\n`;
+            mensaje += `\nQuedo a la espera de su respuesta. ¡Gracias!`;
 
             const urlWhatsApp = `https://wa.me/${NUMERO_WA}?text=${encodeURIComponent(mensaje)}`;
             window.open(urlWhatsApp, '_blank');
